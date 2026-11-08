@@ -1,8 +1,10 @@
-from flask import Flask
+from flask import Flask , jsonify
+from flask_cors import CORS
 import json
 import datetime
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/news.all.get')
@@ -11,7 +13,7 @@ def get_news_all_articles():
 	with open('news_data.json', 'r') as file:
 		data = json.load(file)
 	app.logger.debug('_________________Hello '+str(data))
-	return json.dumps(data)
+	return jsonify(data)
 
 
 @app.route('/news.categories.get')
@@ -25,7 +27,7 @@ def get_news_categories():
              	{'id':2,'name':'Politics'},
               	{'id':3,'name':'Education'}]
        }
-	return json.dumps(data)
+	return jsonify(data)
 
 
 @app.route('/')
